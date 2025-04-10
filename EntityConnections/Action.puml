@@ -1,0 +1,15 @@
+@startuml
+title Entity connections when character taking action
+
+actor Player
+entity Character
+control TsunagiBrain
+boundary TsunagiConnection
+participant Server
+
+TsunagiConnection -> Server : heartbeat API request: TBD
+Server --> TsunagiConnection : heartbeat API request: TBD (GOAL goal)
+TsunagiConnection -> TsunagiBrain : pass(GOAL goal)
+TsunagiBrain -> Character : function calling: Action()
+
+@enduml
