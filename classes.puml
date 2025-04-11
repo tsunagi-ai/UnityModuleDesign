@@ -9,12 +9,12 @@ package TsunagiModule {
     +void ReceivePlayerMessage(string message)
     -Action NotifyActions()
     -GoapSolver goapSolver
-    -State characterState
+    -TsunagiCharacter character
     -TsunagiConnection connector
   }
   TsunagiBrain "1" o-- "1" GoapSolver : Has >
-  TsunagiBrain "1" o-- "1" State : Has as characterState >
   TsunagiBrain "1" o-- "1" TsunagiConnection : Has >
+  TsunagiBrain "1" o-- "1" TsunagiCharacter : Has >
   
   class TsunagiConnection {
     Connects Unity and Server
@@ -23,8 +23,8 @@ package TsunagiModule {
   }
 
   interface TsunagiCharacter {
-    +void StartThink(State state)
-    +delegate ReceiveActions(Action[] actionsList)
+    +void ReceiveActions(Action[] actionsList)
+    +State GetState()
   }
 
   package Goap{
@@ -81,7 +81,10 @@ package Client{
 
   class Character {
     +action()
+    -TsunagiBrain brain
   }
+  Character ..|> TsunagiCharacter : Implements >
+  Character "1" *-- "1" TsunagiBrain : Has >
 
   class ChatInput {
 
