@@ -76,9 +76,6 @@ package TsunagiModule {
 }
 
 package Client{
-  class Player {
-  }
-
   class Character {
     -TsunagiBrain brain
   }
