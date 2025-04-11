@@ -2,31 +2,6 @@
 title Class Design of TsunagiModule
 
 package TsunagiModule {
-  class TsunagiBrain {
-    Determine what the character should do
-    +void ReceiveGoal(Goal goal)
-    +void StartThink(delegate actionReceiver)
-    +void ReceivePlayerMessage(string message)
-    -Action NotifyActions()
-    -GoapSolver goapSolver
-    -TsunagiCharacter character
-    -TsunagiConnection connector
-  }
-  TsunagiBrain "1" o-- "1" GoapSolver : Has >
-  TsunagiBrain "1" o-- "1" TsunagiConnection : Has >
-  TsunagiBrain "1" o-- "1" TsunagiCharacter : Has >
-  
-  class TsunagiConnection {
-    Connects Unity and Server
-    +SendReceivedMessage(string message, State state)
-    +FetchAction(State state)
-  }
-
-  interface TsunagiCharacter {
-    +void ReceiveActions(Action[] actionsList)
-    +State GetState()
-  }
-
   package Goap{
     class GoapSolver {
       Solver of GOAP problem
@@ -72,6 +47,31 @@ package TsunagiModule {
       +Smaller
       +Equal
     }
+  }
+  
+  class TsunagiBrain {
+    Determine what the character should do
+    +void ReceiveGoal(Goal goal)
+    +void StartThink(delegate actionReceiver)
+    +void ReceivePlayerMessage(string message)
+    -Action NotifyActions()
+    -GoapSolver goapSolver
+    -TsunagiCharacter character
+    -TsunagiConnection connector
+  }
+  TsunagiBrain "1" o-- "1" GoapSolver : Has >
+  TsunagiBrain "1" o-- "1" TsunagiConnection : Has >
+  TsunagiBrain "1" o-- "1" TsunagiCharacter : Has >
+  
+  class TsunagiConnection {
+    Connects Unity and Server
+    +SendReceivedMessage(string message, State state)
+    +FetchAction(State state)
+  }
+
+  interface TsunagiCharacter {
+    +void ReceiveActions(Action[] actionsList)
+    +State GetState()
   }
 }
 
