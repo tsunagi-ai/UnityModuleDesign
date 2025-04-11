@@ -2,25 +2,26 @@
 title Class Design of TsunagiModule
 
 package TsunagiModule {
-  class TsunagiConnection {
-    Connects Unity and Server
-    +ReceivePlayerMessage(string message)
-    -SendReceivedMessage(string message, State state)
-    -FetchAction(State state)
-  }
-
   class TsunagiBrain {
     Determine what the character should do
-    +Dictionary<Action, UnityAction> ActionDelegates
     +void ReceiveGoal(Goal goal)
-    +StartThink()
+    +void StartThink(delegate actionReceiver)
+    +void ReceivePlayerMessage(string message)
     -Action NotifyActions()
     -GoapSolver goapSolver
     -State characterState
+    -TsunagiConnection connector
   }
   TsunagiBrain "1" o-- "1" GoapSolver : Has >
   TsunagiBrain "1" o-- "1" State : Has as characterState >
+  TsunagiBrain "1" o-- "1" TsunagiConnection : Has >
   
+  class TsunagiConnection {
+    Connects Unity and Server
+    +SendReceivedMessage(string message, State state)
+    +FetchAction(State state)
+  }
+
   interface TsunagiCharacter {
     +void StartThink(State state)
     +delegate ReceiveActions(Action[] actionsList)
