@@ -18,7 +18,9 @@ package TsunagiModule {
     -GoapSolver goapSolver
     -State characterState
   }
-
+  TsunagiBrain "1" o-- "1" GoapSolver : Has >
+  TsunagiBrain "1" o-- "1" State : Has as characterState >
+  
   interface TsunagiCharacter {
     +void StartThink(State state)
     +delegate ReceiveActions(Action[] actionsList)
