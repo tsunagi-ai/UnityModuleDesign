@@ -34,7 +34,7 @@ package TsunagiModule {
     }
     GoapSolver ..> State : Uses >
     GoapSolver ..> Action : Uses >
-    GoapSolver "1" *-- "*" Action : Has >
+    GoapSolver "1" o-- "*" Action : Has >
 
     abstract State{
       Vector of State
@@ -49,22 +49,22 @@ package TsunagiModule {
       +float cost
       +string name
     }
-    Action "1" *-- "1" State : Has >
-    Action "1" *-- "1" ConditionSet : Has >
+    Action "1" o-- "1" State : Has >
+    Action "1" o-- "1" ConditionSet : Has >
 
     abstract ConditionSet{
       Set of conditions for State
       +bool IsSatisfied(State state)
       +Condition[] conditions
     }
-    ConditionSet "1" *-- "*" Condition : Has >
+    ConditionSet "1" o-- "*" Condition : Has >
 
     abstract Condition{
       +string indexName
       +float value
       +ConditionOperator operator
     }
-    Condition "1" *-- "1" ConditionOperator : Has >
+    Condition "1" o-- "1" ConditionOperator : Has >
 
     enum ConditionOperator {
       +Larger
