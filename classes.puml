@@ -1,0 +1,55 @@
+@startuml
+title Class Design of TsunagiModule
+
+package TsunagiModule {
+
+  package Goap{
+    class GoapSolver {
+      Solver of GOAP problem
+      +Action[] Solve(State goal, State current)
+    }
+
+    abstract State{
+      Vector of State
+      +State Plus(State state)
+      +float[] stateVector
+      +Dictionary<string, int> indexNames
+    }
+    GoapSolver ..> State : Uses >
+
+    abstract Action {
+      +ConditionSet precondition
+      +State effectVector
+      +float cost
+      +string name
+    }
+    GoapSolver ..> Action : Uses >
+    Action "1" *-- "1" State : Has >
+
+    abstract ConditionSet{
+      Set of conditions for State
+      +bool IsSatisfied(State state)
+      +Condition[] conditions
+    }
+    Action "1" *-- "1" ConditionSet : Has >
+
+    abstract Condition{
+      +string indexName
+      +float value
+      +ConditionOperator operator
+    }
+    ConditionSet "1" *-- "*" Condition : Has >
+
+    enum ConditionOperator {
+      +Larger
+      +Smaller
+      +Equal
+    }
+    Condition ..> ConditionOperator : Uses >
+  }
+}
+
+package Client{
+}
+
+@enduml
