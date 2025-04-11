@@ -15,6 +15,8 @@ package TsunagiModule {
     +void ReceiveGoal(Goal goal)
     +StartThink()
     -Action NotifyActions()
+    -GoapSolver goapSolver
+    -State characterState
   }
 
   interface TsunagiCharacter {
@@ -28,6 +30,9 @@ package TsunagiModule {
       +Action[] Solve(State goal, State current)
       +Action[] actionPool
     }
+    GoapSolver ..> State : Uses >
+    GoapSolver ..> Action : Uses >
+    GoapSolver "1" *-- "*" Action : Has >
 
     abstract State{
       Vector of State
@@ -35,7 +40,6 @@ package TsunagiModule {
       +float[] stateVector
       +Dictionary<string, int> indexNames
     }
-    GoapSolver ..> State : Uses >
 
     abstract Action {
       +ConditionSet precondition
@@ -43,30 +47,28 @@ package TsunagiModule {
       +float cost
       +string name
     }
-    GoapSolver ..> Action : Uses >
-    GoapSolver "1" *-- "*" Action : Has >
     Action "1" *-- "1" State : Has >
+    Action "1" *-- "1" ConditionSet : Has >
 
     abstract ConditionSet{
       Set of conditions for State
       +bool IsSatisfied(State state)
       +Condition[] conditions
     }
-    Action "1" *-- "1" ConditionSet : Has >
+    ConditionSet "1" *-- "*" Condition : Has >
 
     abstract Condition{
       +string indexName
       +float value
       +ConditionOperator operator
     }
-    ConditionSet "1" *-- "*" Condition : Has >
+    Condition "1" *-- "1" ConditionOperator : Has >
 
     enum ConditionOperator {
       +Larger
       +Smaller
       +Equal
     }
-    Condition "1" *-- "1" ConditionOperator : Has >
   }
 }
 
