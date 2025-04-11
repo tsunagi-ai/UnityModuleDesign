@@ -26,6 +26,7 @@ package TsunagiModule {
     class GoapSolver {
       Solver of GOAP problem
       +Action[] Solve(State goal, State current)
+      +Action[] actionPool
     }
 
     abstract State{
@@ -43,6 +44,7 @@ package TsunagiModule {
       +string name
     }
     GoapSolver ..> Action : Uses >
+    GoapSolver "1" *-- "*" Action : Has >
     Action "1" *-- "1" State : Has >
 
     abstract ConditionSet{
