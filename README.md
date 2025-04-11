@@ -33,3 +33,13 @@ create inheritance of...
 
 - Once developer-created `Character` runned `TsunagiBrain.StartThink()`, the TsunagiModule start infering, and give a list of `Action` as output.
   - Developers can specify when to think
+
+## Sequences
+
+### When Chat Sent
+
+![ChatSequences](Sequences/Message.png)
+
+### When taking Actions
+
+![ActionSequences](Sequences/Action.png)
