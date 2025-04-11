@@ -66,7 +66,7 @@ package TsunagiModule {
       +Smaller
       +Equal
     }
-    Condition ..> ConditionOperator : Uses >
+    Condition "1" *-- "1" ConditionOperator : Has >
   }
 }
 
