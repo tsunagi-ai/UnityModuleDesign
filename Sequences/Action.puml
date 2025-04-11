@@ -1,15 +1,19 @@
 @startuml
-title Entity connections when character taking action
+title Sequence when character taking action
 
-actor Player
 entity Character
 control TsunagiBrain
+participant GoapSolver
 boundary TsunagiConnection
 participant Server
 
-TsunagiConnection -> Server : heartbeat API request: TBD
-Server --> TsunagiConnection : heartbeat API request: TBD (GOAL goal)
-TsunagiConnection -> TsunagiBrain : pass(GOAL goal)
-TsunagiBrain -> Character : function calling: Action()
+Character -> TsunagiBrain : Request action thinking
+TsunagiBrain -> TsunagiConnection : state
+TsunagiConnection -> Server : state
+Server --> TsunagiConnection : goal
+TsunagiConnection --> TsunagiBrain : goal
+TsunagiBrain -> GoapSolver : goal
+GoapSolver --> TsunagiBrain : action list
+TsunagiBrain -> Character : action list
 
 @enduml
