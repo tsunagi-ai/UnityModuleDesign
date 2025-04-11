@@ -80,15 +80,15 @@ package Client{
   }
 
   class Character {
-    +action()
     -TsunagiBrain brain
   }
   Character ..|> TsunagiCharacter : Implements >
   Character "1" *-- "1" TsunagiBrain : Has >
 
   class ChatInput {
-
+    -void SendChat(string message)
   }
+  ChatInput --> TsunagiConnection : Send Message >
 }
 
 @enduml
