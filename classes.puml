@@ -50,6 +50,16 @@ package TsunagiModule {
 }
 
 package Client{
+  class Player {
+  }
+
+  class Character {
+    +action()
+  }
+
+  class ChatInput {
+
+  }
 }
 
 @enduml
