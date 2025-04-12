@@ -35,7 +35,7 @@ create inheritance of...
 
 #### Run Tsunagi thinking
 
-- Once developer-created `Character` runned `TsunagiBrain.StartThink()`, the TsunagiModule start infering, and give a list of `Action` as output.
+- Once developer-created `Character` ran `TsunagiBrain.StartThink()`, the TsunagiModule starts inferring, and gives a list of `Action` as output.
   - Developers can specify when to think
 
 ## Sequences
