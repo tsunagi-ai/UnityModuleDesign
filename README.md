@@ -1,4 +1,4 @@
-# UnityModuleDesign
+# TsunagiModuleDesign
 
 ## How to use PlantUML
 
