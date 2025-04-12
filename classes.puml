@@ -48,10 +48,10 @@ package TsunagiModule {
       +Equal
     }
   }
-  
+
   class TsunagiBrain {
     Determine what the character should do
-    +void ReceiveGoal(Goal goal)
+    +void ReceiveGoal(State goal)
     +void StartThink(delegate actionReceiver)
     +void ReceivePlayerMessage(string message)
     -Action NotifyActions()
