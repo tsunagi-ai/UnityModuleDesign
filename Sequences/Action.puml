@@ -1,0 +1,19 @@
+@startuml
+title Sequence when character taking action
+
+entity Character
+control TsunagiBrain
+participant GoapSolver
+boundary TsunagiConnection
+participant Server
+
+Character -> TsunagiBrain : Request action thinking
+TsunagiBrain -> TsunagiConnection : state
+TsunagiConnection -> Server : state
+Server --> TsunagiConnection : goal
+TsunagiConnection --> TsunagiBrain : goal
+TsunagiBrain -> GoapSolver : goal
+GoapSolver --> TsunagiBrain : action list
+TsunagiBrain -> Character : action list
+
+@enduml

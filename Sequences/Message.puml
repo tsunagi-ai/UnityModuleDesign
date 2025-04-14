@@ -1,0 +1,13 @@
+@startuml
+title Entity connections when player sent message
+
+actor Player
+entity Character
+control TsunagiBrain
+boundary TsunagiConnection
+participant Server
+
+Player -> TsunagiConnection : SendMessage(string message)
+TsunagiConnection -> Server : API: TBD
+
+@enduml

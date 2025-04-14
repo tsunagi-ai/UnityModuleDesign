@@ -1,0 +1,91 @@
+@startuml
+title Class Design of TsunagiModule
+
+package TsunagiModule {
+  package Goap{
+    class GoapSolver {
+      Solver of GOAP problem
+      +Action[] Solve(State goal, State current)
+      +Action[] actionPool
+    }
+    GoapSolver ..> State : Uses >
+    GoapSolver ..> Action : Uses >
+    GoapSolver "1" o-- "*" Action : Has >
+
+    abstract State{
+      Vector of State
+      +State Plus(State state)
+      +float[] stateVector
+      +Dictionary<string, int> indexNames
+    }
+
+    abstract Action {
+      +ConditionSet precondition
+      +State effectVector
+      +float cost
+      +string name
+    }
+    Action "1" o-- "1" State : Has >
+    Action "1" o-- "1" ConditionSet : Has >
+
+    abstract ConditionSet{
+      Set of conditions for State
+      +bool IsSatisfied(State state)
+      +Condition[] conditions
+    }
+    ConditionSet "1" o-- "*" Condition : Has >
+
+    abstract Condition{
+      +string indexName
+      +float value
+      +ConditionOperator operator
+    }
+    Condition "1" o-- "1" ConditionOperator : Has >
+
+    enum ConditionOperator {
+      +Larger
+      +Smaller
+      +Equal
+    }
+  }
+
+  class TsunagiBrain {
+    Determine what the character should do
+    +void ReceiveGoal(State goal)
+    +void StartThink(delegate actionReceiver)
+    +void ReceivePlayerMessage(string message)
+    -Action NotifyActions()
+    -GoapSolver goapSolver
+    -TsunagiCharacter character
+    -TsunagiConnection connector
+  }
+  TsunagiBrain "1" o-- "1" GoapSolver : Has >
+  TsunagiBrain "1" o-- "1" TsunagiConnection : Has >
+  TsunagiBrain "1" o-- "1" TsunagiCharacter : Has >
+  
+  class TsunagiConnection {
+    Connects Unity and Server
+    +SendReceivedMessage(string message, State state)
+    +FetchAction(State state)
+  }
+
+  interface TsunagiCharacter {
+    +void ReceiveActions(Action[] actionsList)
+    +State GetState()
+  }
+}
+
+package Client{
+  class Character {
+    -TsunagiBrain brain
+  }
+  Character ..|> TsunagiCharacter : Implements >
+  Character "1" *-- "1" TsunagiBrain : Has >
+
+  class ChatInput {
+    -void SendChat(string message)
+  }
+  ChatInput --> TsunagiConnection : Send Message >
+}
+
+@enduml
